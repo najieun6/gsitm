@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Gsitm.Team2.data.DataMapper">
+    <select id="findAll" resultType="Gsitm.Team2.data.DataResponse">
+        SELECT
+
+        data.event_id AS event_id ,
+        data.org_name AS org_name,
+        data.use_fee AS use_fee ,
+        data.player AS player,
+        data.org_link AS org_link ,
+        data.guname AS guname,
+        data.main_img AS main_img,
+        data.themecode AS themecode,
+        data.date AS date,
+        data.etc_desc AS etc_desc,
+        data.end_date AS end_date,
+        data.title AS title,
+        data.codename AS codename,
+        data.user_trgt AS user_trgt,
+        data.program AS program,
+        data.start_date AS start_date,
+        data.place AS place,
+        data.is_free AS is_free
+
+        FROM data
+    </select>
+</mapper>
+
+
