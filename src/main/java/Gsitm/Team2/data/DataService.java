@@ -18,4 +18,9 @@ public class DataService {
     public List<DataResponse> findAll() {
         return dataMapper.findAll();
     }
+
+    public List<DataResponse> findAllByFilter(String codename, String guname) {
+        return dataMapper.findAllByFilter(codename, guname);
+
+    }
 }

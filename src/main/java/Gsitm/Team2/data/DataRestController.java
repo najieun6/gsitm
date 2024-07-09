@@ -1,6 +1,7 @@
 package Gsitm.Team2.data;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,5 +19,13 @@ public class DataRestController {
     List<DataResponse> findAll (){
         return dataService.findAll();
     }
+
+    @GetMapping("/data/filter")
+    List<DataResponse> findAllByFilter(
+            @RequestParam(required = false) String codename,
+            @RequestParam(required = false) String guname) {
+        return dataService.findAllByFilter(codename, guname);
+    }
+
 
 }
