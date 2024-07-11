@@ -1,6 +1,7 @@
 package Gsitm.Team2.bookmark;
 
 import Gsitm.Team2.data.Data;
+import Gsitm.Team2.user.User;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,5 +13,8 @@ public class Bookmark {
 
     @ManyToOne
     private Data data;
+
+    @ManyToOne
+    public User user;
 
 }

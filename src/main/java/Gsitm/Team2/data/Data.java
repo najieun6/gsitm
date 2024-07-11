@@ -9,8 +9,6 @@ import jakarta.persistence.Id;
 public class Data {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-
     private Long event_id;
     private String org_name;
     private String use_fee;
