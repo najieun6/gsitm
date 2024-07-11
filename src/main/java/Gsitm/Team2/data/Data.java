@@ -1,17 +1,16 @@
 package Gsitm.Team2.data;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
 @Entity
-public class Data {
+public class Event {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+//    @GeneratedValue (strategy = GenerationType.IDENTITY)
 
-    private Long event_id;
+//    private Long event_id;
     private String org_name;
     private String use_fee;
     private String player;
