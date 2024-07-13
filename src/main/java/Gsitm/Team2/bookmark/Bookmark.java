@@ -15,6 +15,6 @@ public class Bookmark {
     private Data data;
 
     @ManyToOne
-    public User user;
+    private User user;
 
 }
