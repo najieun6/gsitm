@@ -1,6 +1,8 @@
 package Gsitm.Team2.data;
 
+import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +28,12 @@ public class DataRestController {
             @RequestParam(required = false) String guname) {
         return dataService.findAllByFilter(codename, guname);
     }
-
+    @GetMapping("/data/{event_id}")
+    DataDetailResponse findById(
+            @PathVariable Long event_id
+    ) {
+        return dataService.findById(event_id);
+    }
 
     //test
 
