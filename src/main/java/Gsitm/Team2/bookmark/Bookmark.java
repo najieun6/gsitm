@@ -1,10 +1,15 @@
 package Gsitm.Team2.bookmark;
 
 import Gsitm.Team2.data.Data;
-import Gsitm.Team2.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.checkerframework.common.aliasing.qual.NonLeaked;
 
 @Entity
+@NoArgsConstructor
+@Getter
 public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +19,13 @@ public class Bookmark {
     @ManyToOne
     private Data data;
 
-    @ManyToOne
-    private User user;
+    private String uid;
 
+    @Builder
+    public Bookmark(Long id, boolean isActive, Data data, String uid){
+        this.id = id;
+        this.isActive = isActive;
+        this.data = data;
+        this.uid = uid;
+    }
 }
