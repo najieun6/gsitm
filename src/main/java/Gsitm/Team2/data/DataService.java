@@ -23,4 +23,8 @@ public class DataService {
         return dataMapper.findAllByFilter(codename, guname);
 
     }
+
+    public DataDetailResponse findById(Long id) {
+        return dataMapper.findById(id);
+    }
 }
