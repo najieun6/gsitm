@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseToken;
 import jakarta.validation.constraints.Max;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -45,6 +46,8 @@ public class BookmarkService {
         return ResponseEntity.status(201).body("북마크가 저장되었습니다. id:" + bookmark.getId());
     }
 
+
+    @Transactional
     public String deleteBookmark(DeleteBookmarkDto deleteBookmarkDto) throws FirebaseAuthException {
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(deleteBookmarkDto.idToken());
         String uid = decodedToken.getUid();
@@ -63,6 +66,7 @@ public class BookmarkService {
         return "북마크가 해제되었습니다.";
     }
 
+    @Transactional(readOnly = true)
     public List<EventListResponseDto> findUserBookmark(String idToken) throws FirebaseAuthException {
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
         String uid = decodedToken.getUid();

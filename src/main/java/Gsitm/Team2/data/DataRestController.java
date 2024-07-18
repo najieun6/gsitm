@@ -27,6 +27,10 @@ public class DataRestController {
         return dataService.findAllByFilter(codename, guname);
     }
 
+    @GetMapping("/search")
+    public List<EventListResponseDto> findByTitle(@RequestParam String title) {
+        return dataService.findByTitle(title);
+    }
 
     //test
 
