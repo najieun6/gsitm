@@ -31,8 +31,4 @@ public class DataRestController {
     public List<EventListResponseDto> findByTitle(@RequestParam String title) {
         return dataService.findByTitle(title);
     }
-
-    //test
-
-
 }

@@ -5,50 +5,18 @@
 <mapper namespace="Gsitm.Team2.data.DataMapper">
     <select id="findAll" resultType="Gsitm.Team2.data.DataResponse">
         SELECT
-
-        data.event_id AS event_id ,
-        data.org_name AS org_name,
-        data.use_fee AS use_fee ,
-        data.player AS player,
-        data.org_link AS org_link ,
-        data.guname AS guname,
-        data.main_img AS main_img,
-        data.themecode AS themecode,
-        data.date AS date,
-        data.etc_desc AS etc_desc,
-        data.end_date AS end_date,
-        data.title AS title,
-        data.codename AS codename,
-        data.user_trgt AS user_trgt,
-        data.program AS program,
-        data.start_date AS start_date,
-        data.place AS place,
-        data.is_free AS is_free
-
-        FROM data
+        title,
+        date,
+        place,
+        main_img
+       FROM data
     </select>
     <select id="findAllByFilter" resultType="Gsitm.Team2.data.DataResponse">
         SELECT
-
-        data.event_id AS event_id ,
-        data.org_name AS org_name,
-        data.use_fee AS use_fee ,
-        data.player AS player,
-        data.org_link AS org_link ,
-        data.guname AS guname,
-        data.main_img AS main_img,
-        data.themecode AS themecode,
-        data.date AS date,
-        data.etc_desc AS etc_desc,
-        data.end_date AS end_date,
-        data.title AS title,
-        data.codename AS codename,
-        data.user_trgt AS user_trgt,
-        data.program AS program,
-        data.start_date AS start_date,
-        data.place AS place,
-        data.is_free AS is_free
-
+        title,
+        date,
+        place,
+        main_img
         FROM data
 
         <where> <!--여기서부터는 MyBatis가 조건에따라 순수SQL로 바꿔주는부분임.-->

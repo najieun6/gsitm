@@ -41,7 +41,7 @@ public class BookmarkService {
         if(bookmarkRepository.findByUserIdAndEventId(uid, dto.eventId()).isEmpty()){
             bookmarkRepository.save(bookmark);
         } else {
-            return ResponseEntity.status(405).body("중복저장불가");
+            throw new IllegalArgumentException("북마크 중복 저장 불가");
         }
         return ResponseEntity.status(201).body("북마크가 저장되었습니다. id:" + bookmark.getId());
     }
@@ -77,6 +77,7 @@ public class BookmarkService {
         List<EventListResponseDto> eventList = bookmarkMapper.findBookmark(uid);
         return eventList;
     }
+
 
 
 
