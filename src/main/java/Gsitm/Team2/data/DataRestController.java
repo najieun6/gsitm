@@ -23,7 +23,7 @@ public class DataRestController {
     }
 
     @GetMapping("/data/filter")
-    List<DataResponse> findAllByFilter(
+    List<DataResponseGu> findAllByFilter(
             @RequestParam(required = false) String codename,
             @RequestParam(required = false) String guname) {
         return dataService.findAllByFilter(codename, guname);

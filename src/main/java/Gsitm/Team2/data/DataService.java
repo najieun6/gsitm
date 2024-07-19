@@ -20,7 +20,7 @@ public class DataService {
         return dataMapper.findAll();
     }
 
-    public List<DataResponse> findAllByFilter(String codename, String guname) {
+    public List<DataResponseGu> findAllByFilter(String codename, String guname) {
         return dataMapper.findAllByFilter(codename, guname);
 
     }

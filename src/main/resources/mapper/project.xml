@@ -5,18 +5,24 @@
 <mapper namespace="Gsitm.Team2.data.DataMapper">
     <select id="findAll" resultType="Gsitm.Team2.data.DataResponse">
         SELECT
-        title,
-        date,
-        place,
-        main_img
+        event_id AS event_id,
+        title AS title,
+        date AS date,
+        place AS place,
+        main_img As main_img
        FROM data
+
+        LIMIT 10
+
     </select>
-    <select id="findAllByFilter" resultType="Gsitm.Team2.data.DataResponse">
+    <select id="findAllByFilter" resultType="Gsitm.Team2.data.DataResponseGu">
         SELECT
-        title,
-        date,
-        place,
-        main_img
+        event_id AS event_id,
+        title AS title,
+        date AS date,
+        place AS place,
+        main_img As main_img,
+        guname AS guname
         FROM data
 
         <where> <!--여기서부터는 MyBatis가 조건에따라 순수SQL로 바꿔주는부분임.-->

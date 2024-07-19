@@ -72,5 +72,19 @@ public class Data {
         this.is_free = is_free;
     }
 
+    public String getPlace() {
+        return place;
+    }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getMain_img() {
+        return main_img;
+    }
+
+    public String getDate() {
+        return date;
+    }
 }
