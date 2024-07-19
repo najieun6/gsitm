@@ -24,7 +24,6 @@ public class DataService {
         return dataMapper.findAllByFilter(codename, guname);
 
     }
-
     public List<EventListResponseDto> findByTitle(String title) {
         List<Data> events = dataRepository.findAllByTitle(title);
         List<EventListResponseDto> eventList = events.stream()
@@ -34,5 +33,10 @@ public class DataService {
                         e.getPlace(),
                         e.getMain_img())).toList();
         return eventList;
+    }
+  
+    public DataDetailResponse findById(Long id) {
+        return dataMapper.findById(id);
+
     }
 }

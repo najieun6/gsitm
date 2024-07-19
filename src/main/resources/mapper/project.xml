@@ -30,6 +30,39 @@
         </where>
 
     </select>
+    <select id="findById" resultType="Gsitm.Team2.data.DataDetailResponse">
+        SELECT
+
+        data.event_id AS event_id ,
+<!--        data.org_name AS org_name,-->
+        data.use_fee AS use_fee ,
+<!--        data.player AS player,-->
+<!--        data.org_link AS org_link ,-->
+        data.guname AS guname,
+        data.main_img AS main_img,
+<!--        data.themecode AS themecode,-->
+        data.date AS date,
+<!--        data.etc_desc AS etc_desc,-->
+<!--        data.end_date AS end_date,-->
+        data.title AS title,
+        data.codename AS codename,
+        data.user_trgt AS user_trgt,
+<!--        data.program AS program,-->
+<!--        data.start_date AS start_date,-->
+        data.place AS place
+<!--        data.is_free AS is_free-->
+
+        FROM data
+
+        <where> <!--여기서부터는 MyBatis가 조건에따라 순수SQL로 바꿔주는부분임.-->
+            <if test="event_id != null">
+                <!--               컬럼이름        변수이름-->
+                and event_id = #{event_id}
+            </if>
+
+        </where>
+
+    </select>
 </mapper>
 
 

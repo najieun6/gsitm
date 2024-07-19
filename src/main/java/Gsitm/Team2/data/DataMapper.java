@@ -10,4 +10,6 @@ public interface DataMapper {
     List<DataResponse> findAll();
 
     List<DataResponse> findAllByFilter(String codename, String guname);
+
+    DataDetailResponse findById(Long id);
 }
