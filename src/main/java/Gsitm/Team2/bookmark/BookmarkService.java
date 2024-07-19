@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseToken;
 import jakarta.validation.constraints.Max;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,11 +41,13 @@ public class BookmarkService {
         if(bookmarkRepository.findByUserIdAndEventId(uid, dto.eventId()).isEmpty()){
             bookmarkRepository.save(bookmark);
         } else {
-            return ResponseEntity.status(405).body("중복저장불가");
+            throw new IllegalArgumentException("북마크 중복 저장 불가");
         }
         return ResponseEntity.status(201).body("북마크가 저장되었습니다. id:" + bookmark.getId());
     }
 
+
+    @Transactional
     public String deleteBookmark(DeleteBookmarkDto deleteBookmarkDto) throws FirebaseAuthException {
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(deleteBookmarkDto.idToken());
         String uid = decodedToken.getUid();
@@ -63,6 +66,7 @@ public class BookmarkService {
         return "북마크가 해제되었습니다.";
     }
 
+    @Transactional(readOnly = true)
     public List<EventListResponseDto> findUserBookmark(String idToken) throws FirebaseAuthException {
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
         String uid = decodedToken.getUid();
@@ -73,6 +77,7 @@ public class BookmarkService {
         List<EventListResponseDto> eventList = bookmarkMapper.findBookmark(uid);
         return eventList;
     }
+
 
 
 

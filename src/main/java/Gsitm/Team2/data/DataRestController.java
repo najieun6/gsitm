@@ -27,7 +27,13 @@ public class DataRestController {
             @RequestParam(required = false) String codename,
             @RequestParam(required = false) String guname) {
         return dataService.findAllByFilter(codename, guname);
+    } 
+
+    @GetMapping("/search")
+    public List<EventListResponseDto> findByTitle(@RequestParam String title) {
+        return dataService.findByTitle(title);
     }
+
     @GetMapping("/data/{event_id}")
     DataDetailResponse findById(
             @PathVariable Long event_id
@@ -36,6 +42,7 @@ public class DataRestController {
     }
 
     //test
+
 
 
 }
