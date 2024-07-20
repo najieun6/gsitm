@@ -12,7 +12,6 @@
         main_img As main_img
        FROM data
 
-        LIMIT 10
 
     </select>
     <select id="findAllByFilter" resultType="Gsitm.Team2.data.DataResponseGu">
