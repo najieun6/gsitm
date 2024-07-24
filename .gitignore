@@ -35,4 +35,5 @@ out/
 
 ### VS Code ###
 .vscode/
-..\src\main\resources\secretKey.json
+
+src/main/resources/secretKey.json

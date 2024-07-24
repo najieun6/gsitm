@@ -26,26 +26,40 @@ public class BookmarkService {
         this.bookmarkRepository = bookmarkRepository;
     }
 
-    public ResponseEntity<String> saveBookmark(BookmarkRequestDto dto) throws FirebaseAuthException {
-        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(dto.idToken());
-        String uid = decodedToken.getUid();
-        Data data = dataRepository.findById(dto.eventId()).orElse(null);
-        if(data==null||uid==null){
-            throw new NoSuchElementException("요청값을 확인해주세요");
-        }
-        Bookmark bookmark = Bookmark.builder()
-                .uid(uid)
-                .data(data)
-                .isActive(true)
-                .build();
-        if(bookmarkRepository.findByUserIdAndEventId(uid, dto.eventId()).isEmpty()){
-            bookmarkRepository.save(bookmark);
-        } else {
-            throw new IllegalArgumentException("북마크 중복 저장 불가");
-        }
-        return ResponseEntity.status(201).body("북마크가 저장되었습니다. id:" + bookmark.getId());
-    }
+    public ResponseEntity<String> saveBookmark(BookmarkRequestDto dto) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(dto.idToken());
+            String uid = decodedToken.getUid();
 
+            Data data = dataRepository.findById(dto.eventId()).orElse(null);
+            if (data == null) {
+                throw new NoSuchElementException("요청값을 확인해주세요");
+            }
+
+            Bookmark bookmark = Bookmark.builder()
+                    .uid(uid)
+                    .data(data)
+                    .isActive(true)
+                    .build();
+
+            if (bookmarkRepository.findByUserIdAndEventId(uid, dto.eventId()).isEmpty()) {
+                bookmarkRepository.save(bookmark);
+            } else {
+                throw new IllegalArgumentException("북마크 중복 저장 불가");
+            }
+
+            return ResponseEntity.status(201).body("북마크가 저장되었습니다. id:" + bookmark.getId());
+        } catch (FirebaseAuthException e) {
+            // Firebase 인증 실패하면
+            return ResponseEntity.status(401).body("인증을 실패했습니다.: " + e.getMessage());
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(501).body("서버오류: " + e.getMessage());
+        }
+    }
 
     @Transactional
     public String deleteBookmark(DeleteBookmarkDto deleteBookmarkDto) throws FirebaseAuthException {
@@ -68,18 +82,15 @@ public class BookmarkService {
 
     @Transactional(readOnly = true)
     public List<EventListResponseDto> findUserBookmark(String idToken) throws FirebaseAuthException {
+
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
         String uid = decodedToken.getUid();
-        Optional<Bookmark> bookmarks = bookmarkRepository.findByUid(uid);
+        List<Bookmark> bookmarks = bookmarkRepository.findByUid(uid);
         if(bookmarks.isEmpty()){
             throw new NoSuchElementException("북마크를 찾을 수 없습니다");
         }
         List<EventListResponseDto> eventList = bookmarkMapper.findBookmark(uid);
         return eventList;
     }
-
-
-
-
 
 }

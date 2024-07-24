@@ -6,6 +6,7 @@
     <select id="findAll" resultType="Gsitm.Team2.data.DataResponse">
         SELECT
         title,
+        event_id,
         date,
         place,
         main_img
