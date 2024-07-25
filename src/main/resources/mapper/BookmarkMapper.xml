@@ -5,20 +5,24 @@
 <mapper namespace="Gsitm.Team2.bookmark.BookmarkMapper">
     <update id="deleteBookmark">
         SELECT title,
-                date,
-                place
+        date,
+        place
         FROM data JOIN bookmark AS b
         ON b.data_event_id = data.event_id
         WHERE b.uid = #{uid}
+        AND data.event_id = #{event_id}
     </update>
 
     <select id="findBookmark" resultType="Gsitm.Team2.data.EventListResponseDto">
         SELECT title,
-               date,
-               place,
-               main_img
+        date,
+        place,
+        main_img,
+        event_id
+        <!--        event_id 추가함-->
         FROM data
         JOIN bookmark as b ON b.data_event_id = data.event_id
         WHERE b.uid = #{uid}
+        and b.is_active = 1
     </select>
 </mapper>

@@ -31,10 +31,11 @@ public class DataService {
                         e.getTitle(),
                         e.getDate(),
                         e.getPlace(),
-                        e.getMain_img())).toList();
+                        e.getMain_img(),
+                        e.getEvent_id())).toList();// e.getEvent_id() 추가
         return eventList;
     }
-  
+
     public DataDetailResponse findById(Long id) {
         return dataMapper.findById(id);
 
