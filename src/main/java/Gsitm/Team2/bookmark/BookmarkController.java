@@ -20,7 +20,7 @@ public class BookmarkController {
         return bookmarkService.saveBookmark(dto);
     }
 
-    @PatchMapping("/")
+    @DeleteMapping("/")
     public String deleteBookmark(@RequestBody DeleteBookmarkDto dto) throws FirebaseAuthException {
         return bookmarkService.deleteBookmark(dto);
     }

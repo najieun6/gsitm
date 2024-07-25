@@ -10,7 +10,6 @@
         FROM data JOIN bookmark AS b
         ON b.data_event_id = data.event_id
         WHERE b.uid = #{uid}
-        AND data.event_id = #{event_id}
     </update>
 
     <select id="findBookmark" resultType="Gsitm.Team2.data.EventListResponseDto">
@@ -21,6 +20,5 @@
         FROM data
         JOIN bookmark as b ON b.data_event_id = data.event_id
         WHERE b.uid = #{uid}
-        and b.is_active = 1
     </select>
 </mapper>

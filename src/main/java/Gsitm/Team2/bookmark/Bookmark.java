@@ -14,22 +14,20 @@ public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean isActive;
 
     @ManyToOne
     private Data data;
 
     private String uid;
 
+    private boolean isActive;
     @Builder
-    public Bookmark(Long id, boolean isActive, Data data, String uid){
+    public Bookmark(Long id, Data data, String uid){
         this.id = id;
-        this.isActive = isActive;
         this.data = data;
         this.uid = uid;
+
     }
 
-    public void toggle(){
-        this.isActive=!isActive;
-    }
+
 }

@@ -25,7 +25,7 @@ public class BookmarkService {
         this.bookmarkMapper = bookmarkMapper;
         this.bookmarkRepository = bookmarkRepository;
     }
-    @Transactional
+
     public ResponseEntity<String> saveBookmark(BookmarkRequestDto dto) {
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(dto.idToken());
@@ -39,17 +39,15 @@ public class BookmarkService {
             Bookmark bookmark = Bookmark.builder()
                     .uid(uid)
                     .data(data)
-                    .isActive(true)
                     .build();
 
             if (bookmarkRepository.findByUserIdAndEventId(uid, dto.eventId()).isEmpty()) {
                 bookmarkRepository.save(bookmark);
             } else {
-                bookmark.toggle();
-                bookmarkRepository.save(bookmark);
+                throw new IllegalArgumentException("북마크 중복 저장 불가");
             }
 
-            return ResponseEntity.status(201).body("북마크 상태가 저장되었습니다. id:" + bookmark.getId());
+            return ResponseEntity.status(201).body("북마크가 저장되었습니다. id:" + bookmark.getId());
         } catch (FirebaseAuthException e) {
             // Firebase 인증 실패하면
             return ResponseEntity.status(401).body("인증을 실패했습니다.: " + e.getMessage());
@@ -62,22 +60,21 @@ public class BookmarkService {
         }
     }
 
-//    @Transactional
-//    public String toggleBookmark(DeleteBookmarkDto deleteBookmarkDto) throws FirebaseAuthException {
-//        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(deleteBookmarkDto.idToken());
-//        String uid = decodedToken.getUid();
-//        Data data = dataRepository.findById(deleteBookmarkDto.eventId()).orElse(null);
-//        if(data==null||uid==null){
-//            throw new NoSuchElementException("해당하는 행사 / 유저 정보가 존재하지 않습니다");
-//        }
-//        Bookmark bookmark = bookmarkRepository.findByUserIdAndEventId(uid,deleteBookmarkDto.eventId()).orElse(null);
-//        if(bookmark==null){
-//            throw new NoSuchElementException("해당하는 북마크가 없습니다");
-//        }
-//        bookmark.toggle();
-//        bookmarkRepository.save(bookmark);
-//        return "북마크가 해제되었습니다.";
-//    }
+    @Transactional
+    public String deleteBookmark(DeleteBookmarkDto deleteBookmarkDto) throws FirebaseAuthException {
+        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(deleteBookmarkDto.idToken());
+        String uid = decodedToken.getUid();
+        Data data = dataRepository.findById(deleteBookmarkDto.eventId()).orElse(null);
+        if(data==null||uid==null){
+            throw new NoSuchElementException("해당하는 행사 / 유저 정보가 존재하지 않습니다");
+        }
+        Bookmark bookmark = bookmarkRepository.findByUserIdAndEventId(uid,deleteBookmarkDto.eventId()).orElse(null);
+        if(bookmark==null){
+            throw new NoSuchElementException("해당하는 북마크가 없습니다");
+        }
+        bookmarkRepository.delete(bookmark);
+        return "북마크가 해제되었습니다.";
+    }
 
     @Transactional(readOnly = true)
     public List<EventListResponseDto> findUserBookmark(String idToken) throws FirebaseAuthException {
