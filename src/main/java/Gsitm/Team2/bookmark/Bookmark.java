@@ -28,4 +28,8 @@ public class Bookmark {
         this.data = data;
         this.uid = uid;
     }
+
+    public void toggle(){
+        this.isActive=!isActive;
+    }
 }

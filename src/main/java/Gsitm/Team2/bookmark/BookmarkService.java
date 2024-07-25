@@ -73,10 +73,8 @@ public class BookmarkService {
         if(bookmark==null){
             throw new NoSuchElementException("해당하는 북마크가 없습니다");
         }
-        Bookmark bookmarkBuilder = Bookmark.builder()
-                .isActive(false)
-                .build();
-        bookmarkRepository.save(bookmarkBuilder);
+        bookmark.toggle();
+        bookmarkRepository.save(bookmark);
         return "북마크가 해제되었습니다.";
     }
 
